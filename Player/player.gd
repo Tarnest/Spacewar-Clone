@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 
 signal hit_player
+signal hit
 
 
 @export var player_type = "player1"
@@ -50,14 +51,13 @@ func _physics_process(delta):
 		if collision.get_collider().is_in_group("Player"):
 			queue_free()
 			hit_player.emit()
-		if collision.get_collider() == black_hole:
-			queue_free()
 	
 	var gravity = position.direction_to(black_hole_pos) * 50
 	var gravity_collision = move_and_collide(gravity * delta)
 	if gravity_collision:
 		if gravity_collision.get_collider() == black_hole:
 			queue_free()
+			hit.emit()
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():

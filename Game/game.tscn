@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://blubdh5de3vc1"]
+
+[ext_resource type="Script" path="res://Game/game.gd" id="1_4fw7b"]
+[ext_resource type="PackedScene" uid="uid://6u8jurwmlsbv" path="res://Black Hole/black_hole.tscn" id="2_aljg0"]
+[ext_resource type="PackedScene" uid="uid://cfhe4mr21vj46" path="res://Player/player.tscn" id="3_1dqky"]
+
+[node name="Game" type="Node2D" groups=["Game"]]
+script = ExtResource("1_4fw7b")
+
+[node name="Black Hole" parent="." instance=ExtResource("2_aljg0")]
+
+[node name="Player1" parent="." node_paths=PackedStringArray("black_hole") groups=["Player"] instance=ExtResource("3_1dqky")]
+black_hole = NodePath("../Black Hole")
+
+[node name="Player2" parent="." node_paths=PackedStringArray("black_hole") groups=["Player"] instance=ExtResource("3_1dqky")]
+position = Vector2(978, 320)
+player_type = "player2"
+black_hole = NodePath("../Black Hole")
+
+[connection signal="hit" from="Player1" to="." method="_on_player_1_hit"]
+[connection signal="hit_player" from="Player1" to="." method="_on_player_hit_player"]
+[connection signal="hit_player" from="Player1" to="Player2" method="on_hit"]
+[connection signal="hit" from="Player2" to="." method="_on_player_2_hit"]
+[connection signal="hit_player" from="Player2" to="." method="_on_player_hit_player"]
+[connection signal="hit_player" from="Player2" to="Player1" method="on_hit"]

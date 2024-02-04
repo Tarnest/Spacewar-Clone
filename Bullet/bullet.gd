@@ -8,8 +8,12 @@ func _physics_process(delta):
 	var velocity = direction * speed
 	
 	var collision = move_and_collide(velocity * delta)
-	if collision:
-		collision.get_collider().queue_free()
+	if collision && collision.get_collider().is_in_group("Player"):
+		var player = collision.get_collider()
+		player.hit.emit()
+		player.queue_free()
+		queue_free()
+	elif collision:
 		queue_free()
 
 
