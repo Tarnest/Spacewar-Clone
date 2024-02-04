@@ -9,13 +9,15 @@ script = ExtResource("1_4fw7b")
 
 [node name="Black Hole" parent="." instance=ExtResource("2_aljg0")]
 
-[node name="Player1" parent="." node_paths=PackedStringArray("black_hole") groups=["Player"] instance=ExtResource("3_1dqky")]
+[node name="Player1" parent="." node_paths=PackedStringArray("black_hole", "game") groups=["Player"] instance=ExtResource("3_1dqky")]
 black_hole = NodePath("../Black Hole")
+game = NodePath("..")
 
-[node name="Player2" parent="." node_paths=PackedStringArray("black_hole") groups=["Player"] instance=ExtResource("3_1dqky")]
+[node name="Player2" parent="." node_paths=PackedStringArray("black_hole", "game") groups=["Player"] instance=ExtResource("3_1dqky")]
 position = Vector2(978, 320)
 player_type = "player2"
 black_hole = NodePath("../Black Hole")
+game = NodePath("..")
 
 [connection signal="hit" from="Player1" to="." method="_on_player_1_hit"]
 [connection signal="hit_player" from="Player1" to="." method="_on_player_hit_player"]

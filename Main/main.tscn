@@ -1,11 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://crjodv2moo0bf"]
+[gd_scene load_steps=4 format=3 uid="uid://crjodv2moo0bf"]
 
-[ext_resource type="PackedScene" uid="uid://blubdh5de3vc1" path="res://Game/game.tscn" id="1_1hbb7"]
 [ext_resource type="Script" path="res://Main/main.gd" id="1_qgbcr"]
+[ext_resource type="PackedScene" uid="uid://cm4k63uhc5frb" path="res://Menus/Main Menu/main_menu.tscn" id="2_kupcn"]
+[ext_resource type="Script" path="res://Menus/menu.gd" id="2_wufbg"]
 
 [node name="Main" type="CanvasLayer"]
 script = ExtResource("1_qgbcr")
 
-[node name="Game" parent="." instance=ExtResource("1_1hbb7")]
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_wufbg")
 
-[connection signal="point" from="Game" to="." method="_on_game_point"]
+[node name="Main Menu" parent="Menu" instance=ExtResource("2_kupcn")]
+layout_mode = 1
+offset_left = 363.0
+offset_top = 83.0
+offset_right = 750.0
+offset_bottom = 531.0
+
+[connection signal="play" from="Menu" to="." method="_on_menu_play"]
+[connection signal="button" from="Menu/Main Menu" to="Menu" method="_on_main_menu_button"]

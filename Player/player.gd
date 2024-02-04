@@ -8,10 +8,12 @@ signal hit
 @export var player_type = "player1"
 @export var bullet: PackedScene
 @export var black_hole: StaticBody2D
+@export var game: Node2D
 
 var direction = Vector2.ZERO
 var speed = 200
 var rotation_speed = deg_to_rad(150)
+var gravity_speed = 50
 var accel = 2
 var screen_size
 var player_size = 16.0
@@ -52,7 +54,7 @@ func _physics_process(delta):
 			queue_free()
 			hit_player.emit()
 	
-	var gravity = position.direction_to(black_hole_pos) * 50
+	var gravity = position.direction_to(black_hole_pos) * gravity_speed
 	var gravity_collision = move_and_collide(gravity * delta)
 	if gravity_collision:
 		if gravity_collision.get_collider() == black_hole:
@@ -73,10 +75,10 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 
 func shoot():
-	if get_child_count() < bullet_limit + 3:
-		var b = bullet.instantiate()
-		b.start(global_position + Vector2(30, 0).rotated(rotation), rotation)
-		get_tree().root.add_child(b)
+	await get_tree().create_timer(0.5).timeout
+	var b = bullet.instantiate()
+	b.start(global_position + Vector2(30, 0).rotated(rotation), rotation)
+	game.add_child(b)
 
 
 func on_hit():

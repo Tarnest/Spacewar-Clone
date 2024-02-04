@@ -4,18 +4,22 @@ extends Node2D
 signal point(to)
 
 
-var neither_emitted = false
+var hit_emitted = false
 
 
 func _on_player_1_hit():
-	point.emit("player2")
+	hit("player2")
 
 
 func _on_player_2_hit():
-	point.emit("player1")
+	hit("player1")
 
 
 func _on_player_hit_player():
-	if !neither_emitted:
-		neither_emitted = true
-		point.emit(null)
+	hit(null)
+
+
+func hit(point_to):
+	if !hit_emitted:
+		hit_emitted = true
+		point.emit(point_to)
