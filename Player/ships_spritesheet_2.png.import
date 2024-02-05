@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpmranp40rbnw"
-path="res://.godot/imported/torpedo.png-4c39e473740ec24fce1d956b62ad1fa4.ctex"
+uid="uid://dpmensy1umrkr"
+path="res://.godot/imported/ships_spritesheet_2.png-2bed0ade6ef5413b6b0e9a4097dcfb03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Bullet/torpedo.png"
-dest_files=["res://.godot/imported/torpedo.png-4c39e473740ec24fce1d956b62ad1fa4.ctex"]
+source_file="res://Player/ships_spritesheet_2.png"
+dest_files=["res://.godot/imported/ships_spritesheet_2.png-2bed0ade6ef5413b6b0e9a4097dcfb03.ctex"]
 
 [params]
 

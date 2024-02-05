@@ -30,9 +30,14 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 		position.y = position.y + screen_size.y
 
 
-func start(_position, _rotation):
+func start(_position, _rotation, player_type):
 	position = _position
 	rotation = _rotation
+	
+	if player_type == "player1":
+		$AnimatedSprite2D.play("bullet1")
+	if player_type == "player2":
+		$AnimatedSprite2D.play("bullet2")
 
 
 func _on_timer_timeout():
