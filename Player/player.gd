@@ -75,7 +75,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 
 func shoot():
-	await get_tree().create_timer(0.5).timeout
+	# TODO: create a bullet delay
 	var b = bullet.instantiate()
 	b.start(global_position + Vector2(30, 0).rotated(rotation), rotation)
 	game.add_child(b)
