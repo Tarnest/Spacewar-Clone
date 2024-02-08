@@ -4,8 +4,6 @@ extends CharacterBody2D
 signal hit_player
 signal hit
 
-@onready var spawner = $MultiplayerSpawner
-
 @export var player_type = "player1"
 @export var bullet: PackedScene
 @export var black_hole: StaticBody2D
@@ -26,8 +24,7 @@ func _ready():
 	screen_size = get_viewport().size
 	if black_hole != null:
 		black_hole_pos = black_hole.position
-	
-	spawner.set_spawn_function(Callable(shoot))
+
 
 
 func _physics_process(delta):
@@ -92,8 +89,7 @@ func shoot():
 	var b = bullet.instantiate()
 	b.start(global_position + Vector2(30, 0).rotated(rotation), rotation, player_type)
 	if game != null:
-		return b
-		# game.add_child(b)
+		game.add_child(b, true)
 	else:
 		get_tree().root.add_child(b)
 

@@ -50,6 +50,10 @@ offset_right = 97.0
 offset_bottom = 100.0
 text = "Start"
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Game/game.tscn")
+spawn_path = NodePath("..")
+
 [connection signal="button" from="Menu/Main Menu" to="Menu" method="_on_main_menu_button"]
 [connection signal="start_game" from="Menu/Lobby" to="." method="_on_lobby_start_game"]
 [connection signal="pressed" from="Menu/Lobby/Host" to="Menu/Lobby" method="_on_host_pressed"]

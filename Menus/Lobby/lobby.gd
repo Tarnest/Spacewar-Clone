@@ -22,8 +22,8 @@ func _player_connected(_id):
 	print("your bluetooth device has connected succesfuullayyy")
 	if multiplayer.is_server():
 		start_button.visible = true
-	var game = load("res://Game/game.tscn").instantiate()
-	add_child(game)
+	# var game = load("res://Game/game.tscn").instantiate()
+	# add_child(game)
 
 
 func _player_disconnected(_id):
@@ -58,5 +58,12 @@ func _on_join_pressed():
 
 
 func _on_start_pressed():
-	# start_game.emit()
-	pass
+	start_game.emit()
+	rpc("_hide")
+
+
+@rpc("any_peer", "call_local")
+func _hide():
+	start_button.visible = false
+	host_button.visible = false
+	join_button.visible = false

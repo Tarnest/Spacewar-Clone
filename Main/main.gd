@@ -6,6 +6,7 @@ var player2_score = 0
 var scene = preload("res://Game/game.tscn")
 
 
+@rpc("any_peer", "call_local")
 func _on_game_point(to):
 	match to:
 		"player1": player1_score += 1
@@ -19,6 +20,7 @@ func _on_game_point(to):
 	for child in get_children():
 		if child.is_in_group("Game"):
 			child.queue_free()
+			print("queued free")
 			break
 	
 	spawn_game()
@@ -28,7 +30,7 @@ func _on_game_point(to):
 func spawn_game():
 	var game = scene.instantiate()
 	game.connect("point", Callable(self, "_on_game_point"))
-	call_deferred("add_child", game)
+	call_deferred("add_child", game, true)
 
 
 
