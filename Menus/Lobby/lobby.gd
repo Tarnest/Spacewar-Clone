@@ -1,11 +1,14 @@
 extends Control
 
+signal start_game
+
 const DEFAULT_PORT = 8910
 
 var peer = null
 var address = "127.0.0.1"
 @onready var host_button = $Host
 @onready var join_button = $Join
+@onready var start_button = $Start
 
 func _ready():
 	multiplayer.peer_connected.connect(self._player_connected)
@@ -13,11 +16,14 @@ func _ready():
 	# multiplayer.connected_to_server.connect(self._connected_ok)
 	# multiplayer.connection_failed.connect(self._connected_fail)
 	# multiplayer.server_disconnected.connect(self._server_disconnected)
-	pass
 
 
 func _player_connected(_id):
 	print("your bluetooth device has connected succesfuullayyy")
+	if multiplayer.is_server():
+		start_button.visible = true
+	var game = load("res://Game/game.tscn").instantiate()
+	add_child(game)
 
 
 func _player_disconnected(_id):
@@ -49,3 +55,8 @@ func _on_join_pressed():
 	
 	host_button.set_disabled(true)
 	join_button.set_disabled(true)
+
+
+func _on_start_pressed():
+	# start_game.emit()
+	pass

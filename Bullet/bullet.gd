@@ -42,3 +42,7 @@ func start(_position, _rotation, player_type):
 
 func _on_timer_timeout():
 	queue_free()
+
+
+func _on_game_reset():
+	queue_free()

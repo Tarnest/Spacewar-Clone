@@ -4,6 +4,7 @@ extends CharacterBody2D
 signal hit_player
 signal hit
 
+@onready var spawner = $MultiplayerSpawner
 
 @export var player_type = "player1"
 @export var bullet: PackedScene
@@ -25,6 +26,8 @@ func _ready():
 	screen_size = get_viewport().size
 	if black_hole != null:
 		black_hole_pos = black_hole.position
+	
+	spawner.set_spawn_function(Callable(shoot))
 
 
 func _physics_process(delta):
@@ -35,27 +38,24 @@ func _physics_process(delta):
 	
 	direction = Vector2.ZERO
 	
-	if Input.is_action_pressed("thrust_forward") && player_type == "player1":
+	if Input.is_action_pressed("rotate_left") && is_multiplayer_authority():
+		rotation -= rotation_speed * delta
+	if Input.is_action_pressed("rotate_right") && is_multiplayer_authority():
+		rotation += rotation_speed * delta
+	
+	if Input.is_action_pressed("thrust_forward") && player_type == "player1" && is_multiplayer_authority():
 		direction = Vector2(cos(rotation), sin(rotation))
 		$AnimatedSprite2D.play("thrust_forward1")
-	if Input.is_action_pressed("rotate_left") && player_type == "player1":
-		rotation -= rotation_speed * delta
-	if Input.is_action_pressed("rotate_right") && player_type == "player1":
-		rotation += rotation_speed * delta
-	if Input.is_action_just_pressed("shoot") && player_type == "player1":
+	if Input.is_action_just_pressed("shoot") && player_type == "player1" && is_multiplayer_authority():
 		shoot()
 	
-	if Input.is_action_pressed("thrust_forward2") && player_type == "player2":
+	if Input.is_action_pressed("thrust_forward") && player_type == "player2" && is_multiplayer_authority():
 		direction = Vector2(cos(rotation), sin(rotation))
 		$AnimatedSprite2D.play("thrust_forward2")
-	if Input.is_action_pressed("rotate_left2") && player_type == "player2":
-		rotation -= rotation_speed * delta
-	if Input.is_action_pressed("rotate_right2") && player_type == "player2":
-		rotation += rotation_speed * delta
-	if Input.is_action_just_pressed("shoot2") && player_type == "player2":
+	if Input.is_action_just_pressed("shoot") && player_type == "player2" && is_multiplayer_authority():
 		shoot()
 	
-	if Input.is_action_just_released("thrust_forward") || Input.is_action_just_released("thrust_forward2"):
+	if Input.is_action_just_released("thrust_forward"):
 		$AnimatedSprite2D.stop()
 	
 	velocity = velocity.lerp(direction * speed, accel * delta)
@@ -92,10 +92,12 @@ func shoot():
 	var b = bullet.instantiate()
 	b.start(global_position + Vector2(30, 0).rotated(rotation), rotation, player_type)
 	if game != null:
-		game.add_child(b)
+		return b
+		# game.add_child(b)
 	else:
 		get_tree().root.add_child(b)
 
 
 func on_hit():
 	queue_free()
+

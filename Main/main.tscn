@@ -42,7 +42,16 @@ offset_right = 97.0
 offset_bottom = 65.0
 text = "Join"
 
-[connection signal="play" from="Menu" to="." method="_on_menu_play"]
+[node name="Start" type="Button" parent="Menu/Lobby"]
+visible = false
+layout_mode = 0
+offset_top = 69.0
+offset_right = 97.0
+offset_bottom = 100.0
+text = "Start"
+
 [connection signal="button" from="Menu/Main Menu" to="Menu" method="_on_main_menu_button"]
+[connection signal="start_game" from="Menu/Lobby" to="." method="_on_lobby_start_game"]
 [connection signal="pressed" from="Menu/Lobby/Host" to="Menu/Lobby" method="_on_host_pressed"]
 [connection signal="pressed" from="Menu/Lobby/Join" to="Menu/Lobby" method="_on_join_pressed"]
+[connection signal="pressed" from="Menu/Lobby/Start" to="Menu/Lobby" method="_on_start_pressed"]
