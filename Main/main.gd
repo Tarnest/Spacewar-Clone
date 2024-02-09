@@ -26,7 +26,6 @@ func _on_game_point(to):
 	spawn_game()
 
 
-@rpc("any_peer", "call_local")
 func spawn_game():
 	var game = scene.instantiate()
 	game.connect("point", Callable(self, "_on_game_point"))
@@ -36,3 +35,7 @@ func spawn_game():
 
 func _on_lobby_start_game():
 	spawn_game()
+
+
+func _on_lobby_end_game():
+	$Menu/Lobby.visible = true
