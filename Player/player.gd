@@ -23,7 +23,9 @@ func _ready():
 	screen_size = get_viewport().size
 	if black_hole != null:
 		black_hole_pos = black_hole.position
-
+	
+	scale *= screen_size.y / (20.25 * 32)
+	speed *= scale.x
 
 
 func _physics_process(delta):
@@ -89,7 +91,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 func shoot():
 	# TODO: create a bullet delay
 	var b = bullet.instantiate()
-	b.start(global_position + Vector2(30, 0).rotated(rotation), rotation, player_type)
+	b.start(global_position + Vector2(32 * scale.x, 0).rotated(rotation), rotation, player_type)
 	if game != null:
 		game.call_deferred("add_child", b , true)
 
