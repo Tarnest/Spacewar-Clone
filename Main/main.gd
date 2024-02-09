@@ -38,4 +38,4 @@ func _on_lobby_start_game():
 
 
 func _on_lobby_end_game():
-	$Menu/Lobby.visible = true
+	print(get_tree())

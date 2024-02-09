@@ -5,6 +5,8 @@ signal end_game
 
 const DEFAULT_PORT = 3478
 
+@export var main: CanvasLayer
+
 var peer = null
 @onready var address = $Address
 @onready var host_button = $Host
@@ -35,6 +37,7 @@ func _player_disconnected(_id):
 
 func _server_disconnected():
 	disconnected()
+	print("Server Disconnected")
 
 
 func _on_host_pressed():
@@ -83,13 +86,22 @@ func _show():
 	join_button.visible = true
 	address.visible = true
 
-
 func disconnected():
-	if has_node("/root/Main/Game"):
-		get_node(^"/root/Main/Game").free()
+	for child in main.get_children():
+		if child.is_in_group("Game"):
+			queue_free()
+			break
 	
-	multiplayer.set_multiplayer_peer(null)
-	_show()
-	host_button.set_disabled(false)
-	join_button.set_disabled(false)
+	
+	if multiplayer != null:
+		print("ello")
+		multiplayer.set_multiplayer_peer(null)
+		_show()
+		host_button.set_disabled(false)
+		join_button.set_disabled(false)
 	end_game.emit()
+
+
+func _on_leave_pressed():
+	if multiplayer != null && multiplayer.is_server():
+		multiplayer.player_disconnected.emit()

@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0b7oylsk2xrj"]
+
+[ext_resource type="Script" path="res://Menus/Pause Menu/pause_menu.gd" id="1_adq47"]
+
+[node name="Pause Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -149.5
+offset_top = -118.0
+offset_right = 151.5
+offset_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_adq47")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -119.5
+offset_right = 150.0
+offset_bottom = 119.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Resume"
+
+[node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Options"
+
+[node name="Leave" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Leave"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Leave" to="." method="_on_leave_pressed"]
