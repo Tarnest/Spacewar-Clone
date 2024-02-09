@@ -103,5 +103,5 @@ func disconnected():
 
 
 func _on_leave_pressed():
-	if multiplayer != null && multiplayer.is_server():
+	if multiplayer != null:
 		multiplayer.player_disconnected.emit()
