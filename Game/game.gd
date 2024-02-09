@@ -28,3 +28,5 @@ func hit(point_to):
 	if !hit_emitted:
 		hit_emitted = true
 		point.emit(point_to)
+
+

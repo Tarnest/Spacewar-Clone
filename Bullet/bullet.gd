@@ -3,6 +3,11 @@ extends RigidBody2D
 var speed = 400
 var direction
 
+
+func _ready():
+	call_deferred("set_multiplayer_authority", 1, true)
+
+
 func _physics_process(delta):
 	direction = Vector2(cos(rotation), sin(rotation))
 	var velocity = direction * speed

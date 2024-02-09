@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 signal hit_player
 signal hit
 
@@ -44,13 +43,15 @@ func _physics_process(delta):
 		direction = Vector2(cos(rotation), sin(rotation))
 		$AnimatedSprite2D.play("thrust_forward1")
 	if Input.is_action_just_pressed("shoot") && player_type == "player1" && is_multiplayer_authority():
-		shoot()
+		# shoot()
+		rpc("shoot")
 	
 	if Input.is_action_pressed("thrust_forward") && player_type == "player2" && is_multiplayer_authority():
 		direction = Vector2(cos(rotation), sin(rotation))
 		$AnimatedSprite2D.play("thrust_forward2")
 	if Input.is_action_just_pressed("shoot") && player_type == "player2" && is_multiplayer_authority():
-		shoot()
+		# shoot()
+		rpc("shoot")
 	
 	if Input.is_action_just_released("thrust_forward"):
 		$AnimatedSprite2D.stop()
@@ -84,12 +85,13 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 		position.y = position.y + screen_size.y + player_size / 2
 
 
+@rpc("any_peer", "call_local")
 func shoot():
 	# TODO: create a bullet delay
 	var b = bullet.instantiate()
 	b.start(global_position + Vector2(30, 0).rotated(rotation), rotation, player_type)
 	if game != null:
-		game.add_child(b, true)
+		game.call_deferred("add_child", b , true)
 	else:
 		get_tree().root.add_child(b)
 
