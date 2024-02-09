@@ -80,6 +80,26 @@ metadata/_edit_use_anchors_ = true
 _spawnable_scenes = PackedStringArray("res://Game/game.tscn")
 spawn_path = NodePath("..")
 
+[node name="ScoreLeft" type="Label" parent="."]
+visible = false
+offset_left = 101.0
+offset_top = 65.0
+offset_right = 170.0
+offset_bottom = 175.0
+theme_override_font_sizes/font_size = 80
+text = "0"
+horizontal_alignment = 1
+
+[node name="ScoreRight" type="Label" parent="."]
+visible = false
+offset_left = 1026.0
+offset_top = 40.0
+offset_right = 1095.0
+offset_bottom = 150.0
+theme_override_font_sizes/font_size = 80
+text = "0"
+horizontal_alignment = 1
+
 [connection signal="button" from="Menu/Main Menu" to="Menu" method="_on_main_menu_button"]
 [connection signal="end_game" from="Menu/Lobby" to="." method="_on_lobby_end_game"]
 [connection signal="start_game" from="Menu/Lobby" to="." method="_on_lobby_start_game"]

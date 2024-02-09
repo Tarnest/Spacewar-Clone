@@ -10,20 +10,16 @@ script = ExtResource("1_4fw7b")
 [node name="Black Hole" parent="." instance=ExtResource("2_aljg0")]
 
 [node name="Player1" parent="." node_paths=PackedStringArray("black_hole", "game") groups=["Player"] instance=ExtResource("3_1dqky")]
-position = Vector2(114, 321)
+position = Vector2(100, 321)
 black_hole = NodePath("../Black Hole")
 game = NodePath("..")
 
 [node name="Player2" parent="." node_paths=PackedStringArray("black_hole", "game") groups=["Player"] instance=ExtResource("3_1dqky")]
-position = Vector2(978, 320)
+position = Vector2(1052, 320)
 rotation = 3.14159
 player_type = "player2"
 black_hole = NodePath("../Black Hole")
 game = NodePath("..")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Bullet/bullet.tscn")
-spawn_path = NodePath("..")
 
 [connection signal="hit" from="Player1" to="." method="_on_player_1_hit"]
 [connection signal="hit_player" from="Player1" to="." method="_on_player_hit_player"]

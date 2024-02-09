@@ -92,8 +92,6 @@ func shoot():
 	b.start(global_position + Vector2(30, 0).rotated(rotation), rotation, player_type)
 	if game != null:
 		game.call_deferred("add_child", b , true)
-	else:
-		get_tree().root.add_child(b)
 
 
 func on_hit():
